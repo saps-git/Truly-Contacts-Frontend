@@ -8,21 +8,25 @@ const routes = [  //routes array, which contain route to follow when a path is i
         path: "/auth/register",
         component: RegisterComponent, //impoerted all various components from their own files
         title: "Register",
+        needsAuth: false, //if they need authentication or not
     },
     {
         path: "/auth/login",
         component: LoginComponent,
         title: "Login",
+        needsAuth: false,
     },
     {
         path: "/contacts/create",
         component: CreateContactComponent,
         title: "Create Contact",
+        needsAuth: true,
     },
     {
         path: "/",
         component: ContactsComponent,
         title: "Contacts",
+        needsAuth: true,
     },
 ]
 
