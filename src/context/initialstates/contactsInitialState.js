@@ -8,5 +8,6 @@ export default {
     addContact: {
         loading: false,
         error: null,
+        data: null,
     },
 };

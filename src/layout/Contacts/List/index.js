@@ -1,6 +1,7 @@
 import React from 'react'
-import { Placeholder, List, Image, Container } from 'semantic-ui-react'
+import { Placeholder, List, Image, Container, Message } from 'semantic-ui-react'
 import Header from '../../../components/header'
+import ImageThumb from '../../../components/ImageThumb'
 
 const ContactsListUI = ({state: {contacts: {loading, error, data}}}) => {
     console.log("data", data)
@@ -26,21 +27,31 @@ const ContactsListUI = ({state: {contacts: {loading, error, data}}}) => {
             </>
             )}
 
-            <List>{data.length && data.map((contact) => (
-                <List.Item>
+            {!loading && data.length === 0 && (
+                <Message content="No Contacts to show" />
+            )}
+
+            <List>
+                {data.length > 0 && data.map((contact) => (
+                <List.Item key={contact.id}>
                     <List.Content floated="right">
                         <span>{contact.phone_number}</span>
                     </List.Content>
                     <List.Content style={{display:"flex", alignItems:"center"}}>
-                        <Image circular width={45} height={45} src={contact.contact_picture} />
+                        <ImageThumb
+                            circular 
+                            firstName = {contact.first_name}
+                            lastName = {contact.last_name}
+                            src={contact.contact_picture}
+                            style={{ width: 45, height: 45 }}
+                        />
 
                         <span>
                             {contact.first_name} {contact.last_name}
                         </span>
                     </List.Content>
                 </List.Item>
-            ))}
-                
+            ))} 
             </List>
         </Container>
         </div>

@@ -4,9 +4,9 @@ import getContacts from '../../context/actions/contacts/getContacts'
 import { GlobalContext } from '../../context/Provider'
 import  ContactsListUI  from '../../layout/Contacts/List'
 
-function ContactsContainer() {
+const ContactsContainer = () => {
     const {contactsState, contactsDispatch} = useContext(GlobalContext);
-    const { contacts: {data,}} = contactsState;
+    const { contacts: {data}} = contactsState;
 
     const history = useHistory();
 
