@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import getContacts from '../../context/actions/contacts/getContacts'
 import { GlobalContext } from '../../context/Provider'
 import  ContactsListUI  from '../../layout/Contacts/List'
+import deleteContact from '../../context/actions/contacts/deleteContact'
 
 const ContactsContainer = () => {
     const {contactsState, contactsDispatch} = useContext(GlobalContext);
@@ -18,8 +19,12 @@ const ContactsContainer = () => {
 
     console.log('contactState', contactsState)
 
+    const handleDeleteContact = (id) => {
+        deleteContact(id)(contactsDispatch);
+    }
+
     return (
-        <ContactsListUI state={contactsState}/>
+        <ContactsListUI state={contactsState} deleteContact={handleDeleteContact} />
     )
 }
 

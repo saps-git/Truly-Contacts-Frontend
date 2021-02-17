@@ -1,10 +1,11 @@
 import React from 'react'
-import { Placeholder, List, Image, Container, Message, Header } from 'semantic-ui-react'
+import { Placeholder, List, Image, Container, Message, Header, Button, Icon } from 'semantic-ui-react'
 import AppHeader from '../../../components/header'
 import ImageThumb from '../../../components/ImageThumb'
 import Favorites from '../Favorites'
 
-const ContactsListUI = ({state: {contacts: {loading, data, isSearchActive, foundContacts}}}) => {
+const ContactsListUI = ({deleteContact, state: {contacts: {loading, data, isSearchActive, foundContacts}}}) => {
+    
     console.log("data", data)
 
     const currentContacts = isSearchActive ? foundContacts : data;
@@ -45,26 +46,39 @@ const ContactsListUI = ({state: {contacts: {loading, data, isSearchActive, found
             )}
             
             <List>
-                {currentContacts.length > 0 && currentContacts.map((contact) => (
-                <List.Item key={contact.id}>
-                    <List.Content floated="right">
-                        <span>{contact.phone_number}</span>
-                    </List.Content>
-                    <List.Content style={{display:"flex", alignItems:"center"}}>
-                        <ImageThumb
-                            circular 
-                            firstName = {contact.first_name}
-                            lastName = {contact.last_name}
-                            src={contact.contact_picture}
-                            style={{ width: 45, height: 45 }}
-                        />
+                {currentContacts.length > 0 && 
+                    currentContacts.map((contact) => (
+                        <List.Item key={contact.id} disabled={contact.deleting}>
+                            <List.Content floated="right">
+                                <span>
+                                    {contact.country_code}
+                                    {" "}
+                                    {contact.phone_number}
+                                </span>{" "}
+                                <Button 
+                                    color="red"
+                                    size="small"
+                                    onClick={() => {deleteContact(contact.id)}}
+                                >
+                                    <Icon name="delete" />
+                                </Button>
+                            </List.Content>
+                            <List.Content style={{display:"flex", alignItems:"center"}}>
+                                <ImageThumb
+                                    circular 
+                                    firstName = {contact.first_name}
+                                    lastName = {contact.last_name}
+                                    src={contact.contact_picture}
+                                    style={{ width: 45, height: 45 }}
+                                />
 
-                        <span>
-                            {contact.first_name} {contact.last_name}
-                        </span>
-                    </List.Content>
-                </List.Item>
-            ))} 
+                                <span>
+                                    {contact.first_name} {contact.last_name}
+                                </span>
+                            </List.Content>
+                        </List.Item>
+                    )
+                )} 
             </List>
         </Container>
         </div>
