@@ -10,6 +10,7 @@ export default ({
     phoneNumber: phone_number,
     countryCode: country_code,
     contactPicture: contact_picture,
+    is_favorite: is_favorite
 }) => (dispatch) => {
     const saveToBackend = (url = null) => {
         axiosInstance()
@@ -19,6 +20,7 @@ export default ({
                 phone_number,
                 country_code,
                 contact_picture: url,
+                is_favorite
             })
             .then((res) => {
                 console.log("res", res);
