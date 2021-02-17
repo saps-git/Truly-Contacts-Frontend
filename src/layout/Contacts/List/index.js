@@ -4,20 +4,23 @@ import AppHeader from '../../../components/header'
 import ImageThumb from '../../../components/ImageThumb'
 import Favorites from '../Favorites'
 
-const ContactsListUI = ({state: {contacts: {loading, error, data}}}) => {
+const ContactsListUI = ({state: {contacts: {loading, data, isSearchActive, foundContacts}}}) => {
     console.log("data", data)
+
+    const currentContacts = isSearchActive ? foundContacts : data;
+    console.log("currentContacts", currentContacts);
+
     return (
         <div>
         <AppHeader/>
         <Container>
             <Header>STARRED</Header>
                 <Favorites
-                    favorites = {data.filter((item) => item.is_favorite)}
+                    favorites = {currentContacts.filter((item) => item.is_favorite)}
                     loading = {loading}
                 />
 
-
-            <Header>ALL</Header>
+            <Header>ALL CONTACTS</Header>
 
             {loading && ( //dummy placeholder that will show up when page is loading
             <div>
@@ -37,12 +40,12 @@ const ContactsListUI = ({state: {contacts: {loading, error, data}}}) => {
             </div>
             )}
 
-            {!loading && data.length === 0 && (
+            {!loading && currentContacts.length === 0 && (
                 <Message content="No Contacts to show" />
             )}
             
             <List>
-                {data.length > 0 && data.map((contact) => (
+                {currentContacts.length > 0 && currentContacts.map((contact) => (
                 <List.Item key={contact.id}>
                     <List.Content floated="right">
                         <span>{contact.phone_number}</span>
