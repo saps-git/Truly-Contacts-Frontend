@@ -4,7 +4,7 @@ import AppHeader from '../../../components/header'
 import ImageThumb from '../../../components/ImageThumb'
 import Favorites from '../Favorites'
 
-const ContactsListUI = ({deleteContact, state: {contacts: {loading, data, isSearchActive, foundContacts}}}) => {
+const ContactsListUI = ({starUnstarContact, deleteContact, state: {contacts: {loading, data, isSearchActive, foundContacts}}}) => {
     
     console.log("data", data)
 
@@ -62,6 +62,13 @@ const ContactsListUI = ({deleteContact, state: {contacts: {loading, data, isSear
                                 >
                                     <Icon name="delete" />
                                 </Button>
+                                <Button 
+                                    onClick={() => {
+                                        starUnstarContact(contact.id, contact.is_favorite);
+                                    }}
+                                >
+                                    {contact.is_favorite ? <Icon name="heart" colour="red" /> : <Icon name="heart outline" />}
+                                </Button>
                             </List.Content>
                             <List.Content style={{display:"flex", alignItems:"center"}}>
                                 <ImageThumb
@@ -74,6 +81,7 @@ const ContactsListUI = ({deleteContact, state: {contacts: {loading, data, isSear
 
                                 <span>
                                     {contact.first_name} {contact.last_name}
+                                    {contact.is_favorite && <Icon name="heart" color="red" />}
                                 </span>
                             </List.Content>
                         </List.Item>

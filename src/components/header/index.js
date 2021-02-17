@@ -31,7 +31,7 @@ const Header = () => {
         </Menu.Item>
 
         {isAuthenticated() && (
-            <Menu.Item>
+            <Menu.Item position="right">
                 <Input 
                     style = {{width:350}}
                     placeholder = "Search Contacts"

@@ -1,4 +1,4 @@
-import { ADD_CONTACT_ERROR, ADD_CONTACT_LOAD, ADD_CONTACT_SUCCESS, CLEAR_ADD_CONTACT, CONTACTS_LOADING, CONTACTS_LOAD_ERROR, CONTACTS_LOAD_SUCCESS, DELETE_CONTACT_ERROR, DELETE_CONTACT_LOADING, DELETE_CONTACT_SUCCESS, LOGOUT_USER, SEARCH_CONTACTS } from "../../constants/actionTypes";
+import { ADD_CONTACT_ERROR, ADD_CONTACT_LOAD, ADD_CONTACT_SUCCESS, ADD_REMOVE_STAR_SUCCESS, CLEAR_ADD_CONTACT, CONTACTS_LOADING, CONTACTS_LOAD_ERROR, CONTACTS_LOAD_SUCCESS, DELETE_CONTACT_ERROR, DELETE_CONTACT_LOADING, DELETE_CONTACT_SUCCESS, LOGOUT_USER, SEARCH_CONTACTS } from "../../constants/actionTypes";
 import contactsInitialState from  "../initialstates/contactsInitialState"
 
 const contacts = (state, {type, payload}) => {
@@ -142,13 +142,17 @@ const contacts = (state, {type, payload}) => {
             }
         }
 
-        case DELETE_CONTACT_ERROR: {
-            return {
+        case ADD_REMOVE_STAR_SUCCESS: {
+            return{
                 ...state,
                 contacts: {
                     ...state.contacts,
-                    loading: false,
-
+                    data: state.contacts.data.map((item) => {
+                        if(item.id === payload.id){
+                            return payload;
+                        }
+                        return item;
+                    })
                 }
             }
         }

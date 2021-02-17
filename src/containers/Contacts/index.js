@@ -4,6 +4,7 @@ import getContacts from '../../context/actions/contacts/getContacts'
 import { GlobalContext } from '../../context/Provider'
 import  ContactsListUI  from '../../layout/Contacts/List'
 import deleteContact from '../../context/actions/contacts/deleteContact'
+import starUnstar from '../../context/actions/contacts/starUnstar'
 
 const ContactsContainer = () => {
     const {contactsState, contactsDispatch} = useContext(GlobalContext);
@@ -23,8 +24,12 @@ const ContactsContainer = () => {
         deleteContact(id)(contactsDispatch);
     }
 
+    const handleStarUnstarContact = (id, is_favorite) => {
+        starUnstar(id, !is_favorite)(contactsDispatch);
+    }
+
     return (
-        <ContactsListUI state={contactsState} deleteContact={handleDeleteContact} />
+        <ContactsListUI state={contactsState} deleteContact={handleDeleteContact} starUnstarContact={handleStarUnstarContact}/>
     )
 }
 
