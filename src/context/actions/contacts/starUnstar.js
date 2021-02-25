@@ -9,17 +9,17 @@ export default (id, is_favorite) => (dispatch) => {
     });
 
     axiosInstance()
-    .patch(`/contacts/${id}`, {is_favorite})
-    .then((res) => {
-        dispatch({
-            type: ADD_REMOVE_STAR_SUCCESS,
-            payload: res.data,
+        .patch(`/contacts/${id}`, {is_favorite})
+        .then((res) => {
+            dispatch({
+                type: ADD_REMOVE_STAR_SUCCESS,
+                payload: res.data,
+            });
+        })
+        .catch((err) => {
+            dispatch({
+                type: ADD_REMOVE_STAR_ERROR,
+                payload: err.response ? err.response.data : CONNECTION_ERROR
+            });
         });
-    })
-    .catch((err) => {
-        dispatch({
-            type: ADD_REMOVE_STAR_ERROR,
-            payload: err.response ? err.response.data : CONNECTION_ERROR
-        });
-    })
-}
+};

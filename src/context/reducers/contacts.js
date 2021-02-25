@@ -88,8 +88,8 @@ const contacts = (state, {type, payload}) => {
                     error: null,
                     loading: false,
                     data: null,
-                }
-            }
+                },
+            };
         }
 
         case SEARCH_CONTACTS: {

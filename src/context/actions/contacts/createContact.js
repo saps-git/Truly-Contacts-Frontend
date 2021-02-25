@@ -4,14 +4,16 @@ import { CONNECTION_ERROR } from "../../../constants/api";
 import { storage } from "../../../helpers/firebase";
 import { FIREBASE_IMAGE_REF } from "../../../constants/firebase";
  
-export default ({ 
+export default ({
     firstName: first_name,
     lastName: last_name,
     phoneNumber: phone_number,
     countryCode: country_code,
     contactPicture: contact_picture,
-    is_favorite: is_favorite
 }) => (dispatch) => {
+
+    //console.log("check:",first_name, last_name, phone_number, country_code, contact_picture)
+
     const saveToBackend = (url = null) => {
         axiosInstance()
             .post("/contacts/", {
@@ -20,7 +22,6 @@ export default ({
                 phone_number,
                 country_code,
                 contact_picture: url,
-                is_favorite
             })
             .then((res) => {
                 console.log("res", res);
@@ -64,4 +65,3 @@ export default ({
     
 }
 
-  

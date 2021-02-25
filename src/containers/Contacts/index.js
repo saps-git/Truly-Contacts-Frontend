@@ -12,25 +12,27 @@ const ContactsContainer = () => {
 
     const history = useHistory();
 
+    const handleDeleteContact = (id) => {
+        deleteContact(id)(contactsDispatch);
+    };
+
+    const handleStarUnstarContact = (id, is_favorite) => {
+        starUnstar(id, !is_favorite)(contactsDispatch); // (!is_favorite) is passed so as to switch the case, when the button is pressed
+    };
+
     useEffect(() => {
         if(data.length === 0){
             getContacts(history)(contactsDispatch);
         }
-    }, []);
-
-    console.log('contactState', contactsState)
-
-    const handleDeleteContact = (id) => {
-        deleteContact(id)(contactsDispatch);
-    }
-
-    const handleStarUnstarContact = (id, is_favorite) => {
-        starUnstar(id, !is_favorite)(contactsDispatch);
-    }
+    }, []); //loading contacts only on the initial render
 
     return (
-        <ContactsListUI state={contactsState} deleteContact={handleDeleteContact} starUnstarContact={handleStarUnstarContact}/>
+        <ContactsListUI 
+            state={contactsState} 
+            deleteContact={handleDeleteContact} 
+            starUnstarContact={handleStarUnstarContact}
+        />
     )
 }
 
-export default ContactsContainer
+export default ContactsContainer; 

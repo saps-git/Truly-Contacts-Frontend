@@ -21,7 +21,7 @@ const firebaseConfig = {
   measurementId: REACT_APP_MEASUREMENT_ID,
 };
 
-console.log("firebase",firebaseConfig)
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const storage = firebase.storage();

@@ -8,18 +8,18 @@ export default (id) => (dispatch) => {
     });
 
     axiosInstance()
-    .delete(`/contacts/${id}`)
-    .then((res) => {
-        dispatch({
-            type: DELETE_CONTACT_SUCCESS,
-            payload: id,
-        });
-    })
-    .catch((err) => {
-        console.log("res.status", err.status);
-        dispatch({
-            type: DELETE_CONTACT_ERROR,
-            payload: err.response ? err.response.data : "Could not connect"
-        });
-    })
+        .delete(`/contacts/${id}`)
+        .then((res) => {
+            dispatch({
+                type: DELETE_CONTACT_SUCCESS,
+                payload: id,
+            });
+        })
+        .catch((err) => {
+            console.log("res.status", err.status);
+            dispatch({
+                type: DELETE_CONTACT_ERROR,
+                payload: err.response ? err.response.data : "Could not connect"
+            });
+        })
 }

@@ -7,68 +7,63 @@ import CreateContact from '../../layout/Contacts/Create';
 
 const CreateContactContainer = () => {
     
-        const [form, setForm] = useState({});
-        const [tempFile, setTempFile] = useState(null)
-        const { contactsDispatch, 
-                contactsState : {
-                    addContact: { loading, data, }
-                } 
-            } = useContext(GlobalContext);
+    const [form, setForm] = useState({});
+    const [tempFile, setTempFile] = useState(null);
+    const history = useHistory();
 
-        const history = useHistory();
+    const { 
+        contactsDispatch, 
+        contactsState : {
+            addContact: { loading, data, }
+        } 
+    } = useContext(GlobalContext);
 
-        
-        useEffect(() => {
-            if (data) {
-              history.push("/");
-            }
-            return () => {
-              clearCreateContact()(contactsDispatch);
-            };
-          }, [data]);
-        
-        console.log("addContact loading", loading);
-
-        const onChange = (e, { name, value}) => {
-            setForm({...form, [name]: value})
+    const onImageChange = (e) => {
+        e.persist();
+        const fileURL = e.target.files[0]; //take the first obj from the input array (i.e image)
+        setForm({...form, contactPicture: fileURL}); //set it in the form 
+        if(fileURL){
+            setTempFile(URL.createObjectURL(fileURL)); //creating a URL from the object
+        }
+    };
+     
+    useEffect(() => {
+        if (data) { //once data array is filled (form submitted)
+            history.push("/"); //go to home page
+        }
+        return () => { //clean up function
+            clearCreateContact()(contactsDispatch); //clear the data array
         };
+    }, [data]); //on change in the data array of contacts
 
-        console.log("form", form)
+    const formIsHalfFilled = Object.values(form).filter((item) => item && item !== "")?.length>0 && !data;
 
-        const onSubmit = () => {
-            createContact(form)(contactsDispatch);
-        }
+    const onChange = (e, { name, value}) => {
+        setForm({...form, [name]: value}) //onChange of any value, in the form set it as the name: value pair
+    };
 
-        const formInvalid =
-            !form.firstName?.length ||
-            !form.lastName?.length ||
-            !form.countryCode?.length ||
-            !form.phoneNumber?.length;
+    const onSubmit = () => {
+        createContact(form)(contactsDispatch); //sending dispatch on the submission
+    }
 
-        const formIsHalfFilled = Object.values(form).filter((item) => item && item !== "")?.length>0 && !data;
+    const formInvalid =
+        !form.firstName?.length ||
+        !form.lastName?.length ||
+        !form.countryCode?.length ||
+        !form.phoneNumber?.length;
 
-        const onImageChange = (e) => {
-            e.persist();
-            const fileURL = e.target.files[0];
-            setForm({...form, contactPicture: fileURL});
-            if(fileURL){
-                setTempFile(URL.createObjectURL(fileURL));
-            }
-        }
-
-        return (
-            <CreateContact 
-                onChange={onChange}
-                onSubmit={onSubmit}
-                form={form}
-                formInvalid={formInvalid}
-                loading={loading}
-                formIsHalfFilled={formIsHalfFilled}
-                onImageChange={onImageChange}
-                tempFile={tempFile}
-                
-            />
-        )
+    return (
+        <CreateContact 
+            onSubmit={onSubmit}
+            formInvalid={formInvalid}
+            onChange={onChange}
+            form={form}
+            formIsHalfFilled={formIsHalfFilled}
+            loading={loading}
+            onImageChange={onImageChange}
+            tempFile={tempFile}
+        />
+    )
 }
 
-export default CreateContactContainer
+export default CreateContactContainer;

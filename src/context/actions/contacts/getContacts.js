@@ -7,17 +7,17 @@ export default (history) => (dispatch) => {
         type: CONTACTS_LOADING,
     })
     axiosInstance(history)
-    .get("/contacts/") //fetching details from contacts, 
-    .then((res) => {
-        dispatch({ //and then calling dispath accordingly
-            type: CONTACTS_LOAD_SUCCESS,
-            payload: res.data,
-        });
-    })
-    .catch((err) => {
-        dispatch({
-            type: CONTACTS_LOAD_ERROR,
-            payload: err.response ? err.response.data : CONNECTION_ERROR 
+        .get("/contacts/") //fetching details from contacts, 
+        .then((res) => {
+            dispatch({ //and then calling dispath accordingly
+                type: CONTACTS_LOAD_SUCCESS,
+                payload: res.data,
+            });
         })
-    });
-}
+        .catch((err) => {
+            dispatch({
+                type: CONTACTS_LOAD_ERROR,
+                payload: err.response ? err.response.data : CONNECTION_ERROR 
+            })
+        });
+};

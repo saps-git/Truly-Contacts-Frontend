@@ -1,20 +1,20 @@
-import React from 'react'
-import { Image } from 'semantic-ui-react'
-import './style.css'
+import React from 'react';
+import { Image } from 'semantic-ui-react';
+import './style.css';
 
 const ImageThumb = ({firstName, lastName, src, className, style}) => {
 
     const getInitials = () => {
         if(firstName && lastName){
-            return `${firstName[0]}${lastName[0]}`
+            return `${firstName[0]}${lastName[0]}`; //returning the initials
         }else {
-            return ""
-        }
-    }
+            return "";
+        };
+    };
 
     return (
         <div>
-            {src && (
+            {src && ( //if you have the image link 
                 <Image
                     circular 
                     width={45}
@@ -26,7 +26,7 @@ const ImageThumb = ({firstName, lastName, src, className, style}) => {
 
             )}
 
-            {!src && (
+            {!src && ( //if you don't have the image 
                 <div style={style} className={`thumbnail ${className}`}>
                     <span>{getInitials()}</span>
                 </div>
@@ -37,4 +37,4 @@ const ImageThumb = ({firstName, lastName, src, className, style}) => {
     )
 }
 
-export default ImageThumb
+export default ImageThumb;
